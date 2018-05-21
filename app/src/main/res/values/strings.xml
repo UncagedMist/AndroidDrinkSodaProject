@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">AndroidDrinkSodaProject</string>
+
+    <string name="FACEBOOK_APP_ID">215009362440219</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">36f37fd781566a5c2bc182449a1be1a7</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+</resources>
