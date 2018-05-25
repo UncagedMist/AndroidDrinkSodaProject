@@ -13,7 +13,7 @@ import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.RetrofitClient;
 
 public class Common {
 
-    private static final String BASE_URL = "http://10.0.2.2/drinkshop/";
+    public static final String BASE_URL = "http://10.0.2.2/drinkshop/";
 
     public static final String TOPPING_MENU_ID = "7";
 

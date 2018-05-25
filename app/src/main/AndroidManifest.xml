@@ -3,6 +3,7 @@
     package="tbc.techbytecare.kk.androiddrinksodaproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -32,7 +33,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/FullScreenTheme" />
         <activity android:name=".DrinkActivity" />
         <activity android:name=".CartActivity"></activity>
     </application>
