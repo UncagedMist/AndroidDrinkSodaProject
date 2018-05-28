@@ -48,8 +48,10 @@ import retrofit2.Response;
 import tbc.techbytecare.kk.androiddrinksodaproject.Adapter.CategoryAdapter;
 import tbc.techbytecare.kk.androiddrinksodaproject.Common.Common;
 import tbc.techbytecare.kk.androiddrinksodaproject.Database.DataSource.CartRepository;
+import tbc.techbytecare.kk.androiddrinksodaproject.Database.DataSource.FavouriteRepository;
 import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.CartDataSource;
-import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.CartDatabase;
+import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.FavouriteDataSource;
+import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.TBCRoomDatabase;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Banner;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Category;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Drink;
@@ -210,8 +212,9 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initDB() {
-        Common.cartDatabase = CartDatabase.getInstance(this);
-        Common.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Common.cartDatabase.cartDAO()));
+        Common.tbcRoomDatabase = TBCRoomDatabase.getInstance(this);
+        Common.cartRepository = CartRepository.getInstance(CartDataSource.getInstance(Common.tbcRoomDatabase.cartDAO()));
+        Common.favouriteRepository = FavouriteRepository.getInstance(FavouriteDataSource.getInstance(Common.tbcRoomDatabase.favouriteDAO()));
     }
 
     private void getToppingList() {

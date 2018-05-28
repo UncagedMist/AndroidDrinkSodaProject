@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tbc.techbytecare.kk.androiddrinksodaproject.Database.DataSource.CartRepository;
-import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.CartDatabase;
+import tbc.techbytecare.kk.androiddrinksodaproject.Database.DataSource.FavouriteRepository;
+import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.TBCRoomDatabase;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Category;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Drink;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.User;
@@ -28,8 +29,9 @@ public class Common {
     public static int sugarAmount = -1;
     public static int iceAmount = -1;
 
-    public static CartDatabase cartDatabase;
+    public static TBCRoomDatabase tbcRoomDatabase;
     public static CartRepository cartRepository;
+    public static FavouriteRepository favouriteRepository;
 
 
     public static List<Drink> toppingList = new ArrayList<>();
