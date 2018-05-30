@@ -11,9 +11,8 @@ import tbc.techbytecare.kk.androiddrinksodaproject.R;
 
 public class DrinkViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public ImageView img_product;
+    public ImageView img_product,imgCart,imgFav;
     public TextView txt_drink_name,txt_price;
-    public Button btn_add_cart;
 
     private ItemClickListener itemClickListener;
 
@@ -29,7 +28,8 @@ public class DrinkViewHolder extends RecyclerView.ViewHolder implements View.OnC
         txt_drink_name = itemView.findViewById(R.id.txt_drink_name);
         txt_price = itemView.findViewById(R.id.txt_price);
 
-        btn_add_cart = itemView.findViewById(R.id.btn_add_cart);
+        imgCart = itemView.findViewById(R.id.imgCart);
+        imgFav = itemView.findViewById(R.id.imgFav);
 
         itemView.setOnClickListener(this);
     }

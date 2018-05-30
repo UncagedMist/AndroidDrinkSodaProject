@@ -69,4 +69,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>  {
     public int getItemCount() {
         return cartList.size();
     }
+
+    public void removeItem(int position)    {
+        cartList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Cart item, int position)   {
+        cartList.add(position,item);
+        notifyItemInserted(position);
+    }
 }

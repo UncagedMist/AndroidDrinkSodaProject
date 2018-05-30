@@ -35,6 +35,11 @@ public class FavouriteDataSource implements IFavouriteDataSource {
     }
 
     @Override
+    public void insertFav(Favourite... favourites) {
+        favouriteDAO.insertFav(favourites);
+    }
+
+    @Override
     public void delete(Favourite favourite) {
         favouriteDAO.delete(favourite);
     }

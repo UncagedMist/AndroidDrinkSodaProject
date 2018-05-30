@@ -355,6 +355,9 @@ public class HomeActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the home action
         }
+        else if (id == R.id.nav_fav)    {
+            startActivity(new Intent(HomeActivity.this,FavouriteActivity.class));
+        }
         else if (id == R.id.nav_sign_out) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Exit Application");
