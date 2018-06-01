@@ -36,7 +36,8 @@
             android:theme="@style/FullScreenTheme" />
         <activity android:name=".DrinkActivity" />
         <activity android:name=".CartActivity" />
-        <activity android:name=".FavouriteActivity"></activity>
+        <activity android:name=".FavouriteActivity" />
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
