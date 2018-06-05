@@ -105,7 +105,7 @@ public class FavouriteActivity extends AppCompatActivity implements RecyclerItem
             Common.favouriteRepository.delete(deletedItem);
 
             Snackbar snackbar = Snackbar.make(rootLayout,new StringBuilder(name)
-                                    .append(" removed from Favourite List").toString(),
+                                    .append(" removed from Favourites").toString(),
                                         Snackbar.LENGTH_LONG);
 
             snackbar.setAction("UNDO", new View.OnClickListener() {

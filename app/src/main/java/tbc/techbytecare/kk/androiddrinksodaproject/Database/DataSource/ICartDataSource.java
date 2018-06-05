@@ -13,6 +13,8 @@ public interface ICartDataSource {
 
     int countCartItems();
 
+    float sumPrice();
+
     void emptyCart();
 
     void insertToCart(Cart...carts);
