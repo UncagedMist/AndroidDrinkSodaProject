@@ -309,8 +309,8 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
                 .into(img_product_dialog);
 
         txt_product_dialog.setText(new StringBuilder(drinkList.get(position).Name).append(" x")
-        .append(number)
-                .append(Common.sizeOfCup == 0 ? " Size M":"Size L").toString());
+                .append(Common.sizeOfCup == 0 ? " Size M" : " Size L")
+                        .append(number).toString());
 
         txt_sugar.setText(new StringBuilder("Sugar : ").append(Common.sugarAmount).append("%"));
         txt_ice.setText(new StringBuilder("Ice : ").append(Common.iceAmount).append("%"));
@@ -318,10 +318,8 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
         double price = (Double.parseDouble(drinkList.get(position).Price) * (Double.parseDouble(number)) + Common.toppingPrice);
 
         if (Common.sizeOfCup == 1)  {
-            price += 3.0;
+            price += (3.0 * Double.parseDouble(number));
         }
-
-        txt_product_price.setText(new StringBuilder("$").append(price));
 
         StringBuilder topping_final_comment = new StringBuilder("");
 
@@ -331,7 +329,10 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
 
         txt_topping_extras.setText(topping_final_comment);
 
-        final double finalPrice = price;
+        final double finalPrice = Math.round(price);
+
+        txt_product_price.setText(new StringBuilder("$").append(finalPrice));
+
         builder.setPositiveButton("CONFIRM", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -339,11 +340,12 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
 
                 try {
                     Cart cartItem = new Cart();
-                    cartItem.name = txt_product_dialog.getText().toString();
+                    cartItem.name = drinkList.get(position).Name;
                     cartItem.amount = Integer.parseInt(number);
                     cartItem.ice = Common.iceAmount;
                     cartItem.sugar = Common.sugarAmount;
                     cartItem.price = finalPrice;
+                    cartItem.size = Common.sizeOfCup;
                     cartItem.toppingExtras = txt_topping_extras.getText().toString();
                     cartItem.link = drinkList.get(position).Link;
 
