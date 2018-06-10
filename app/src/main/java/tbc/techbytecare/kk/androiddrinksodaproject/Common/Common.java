@@ -11,10 +11,12 @@ import tbc.techbytecare.kk.androiddrinksodaproject.Model.Drink;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.User;
 import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.IDrinkShopAPI;
 import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.RetrofitClient;
+import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.RetrofitScalarClient;
 
 public class Common {
 
     public static final String BASE_URL = "http://10.0.2.2/drinkshop/";
+    public static final String API_TOKEN_URL = "http://10.0.2.2/drinkshop/braintree/main.php";
 
     public static final String TOPPING_MENU_ID = "7";
 
@@ -38,6 +40,11 @@ public class Common {
 
     public static IDrinkShopAPI getAPI()    {
         return RetrofitClient.getClient(BASE_URL)
+                .create(IDrinkShopAPI.class);
+    }
+
+    public static IDrinkShopAPI getScalarAPI()    {
+        return RetrofitScalarClient.getScalarClient(BASE_URL)
                 .create(IDrinkShopAPI.class);
     }
 }
