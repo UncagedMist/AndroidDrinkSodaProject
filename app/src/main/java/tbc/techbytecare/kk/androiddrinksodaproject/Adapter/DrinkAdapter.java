@@ -68,7 +68,7 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
         holder.setItemClickListener(new ItemClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Clicked..", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Clicked..", Toast.LENGTH_SHORT).show();
             }
         });
 

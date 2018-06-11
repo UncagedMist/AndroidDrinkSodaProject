@@ -8,13 +8,30 @@
     android:background="@drawable/drink_shop_bg"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_continue"
-        android:background="@color/colorPrimary"
-        android:text="Continue"
+    <LinearLayout
+        android:weightSum="2"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_continue"
+            android:background="@color/colorPrimary"
+            android:text="REGISTER OR LOGIN"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"/>
+
+        <Button
+            android:id="@+id/btn_skip"
+            android:background="@color/colorPrimary"
+            android:text="SKIP FOR NOW"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

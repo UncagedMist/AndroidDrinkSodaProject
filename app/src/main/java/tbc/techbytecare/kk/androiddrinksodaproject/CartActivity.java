@@ -130,62 +130,84 @@ public class CartActivity extends AppCompatActivity implements RecyclerItemTouch
     }
 
     private void placeOrder() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
-        builder.setTitle("Submit Order");
 
-        View submit_order_layout = LayoutInflater.from(this)
-                .inflate(R.layout.submit_order_layout,null);
+        if (Common.currentUser != null) {
 
-        final EditText edt_comment = submit_order_layout.findViewById(R.id.edt_comment);
-        final EditText edt_other_address = submit_order_layout.findViewById(R.id.edt_other_address);
+            AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+            builder.setTitle("Submit Order");
 
-        final RadioButton rdi_user_address = submit_order_layout.findViewById(R.id.rdi_user_address);
-        final RadioButton rdi_other_address = submit_order_layout.findViewById(R.id.rdi_other_address);
+            View submit_order_layout = LayoutInflater.from(this)
+                    .inflate(R.layout.submit_order_layout, null);
 
-        rdi_user_address.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)  {
-                    edt_other_address.setEnabled(false);
+            final EditText edt_comment = submit_order_layout.findViewById(R.id.edt_comment);
+            final EditText edt_other_address = submit_order_layout.findViewById(R.id.edt_other_address);
+
+            final RadioButton rdi_user_address = submit_order_layout.findViewById(R.id.rdi_user_address);
+            final RadioButton rdi_other_address = submit_order_layout.findViewById(R.id.rdi_other_address);
+
+            rdi_user_address.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        edt_other_address.setEnabled(false);
+                    }
                 }
-            }
-        });
+            });
 
-        rdi_other_address.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)  {
-                    edt_other_address.setEnabled(true);
+            rdi_other_address.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        edt_other_address.setEnabled(true);
+                    }
                 }
-            }
-        });
-        builder.setView(submit_order_layout);
+            });
+            builder.setView(submit_order_layout);
 
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        }).setPositiveButton("PLACE ORDER", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            }).setPositiveButton("PLACE ORDER", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                orderComment = edt_comment.getText().toString();
-                if (rdi_user_address.isChecked())   {
-                    orderAddress = Common.currentUser.getAddress();
-                }
-                else  if (rdi_other_address.isChecked())  {
-                    orderAddress = edt_other_address.getText().toString();
-                }
-                else    {
-                    orderAddress = "";
-                }
+                    orderComment = edt_comment.getText().toString();
+                    if (rdi_user_address.isChecked()) {
+                        orderAddress = Common.currentUser.getAddress();
+                    } else if (rdi_other_address.isChecked()) {
+                        orderAddress = edt_other_address.getText().toString();
+                    } else {
+                        orderAddress = "";
+                    }
 
-                DropInRequest dropInRequest = new DropInRequest().clientToken(token);
-                startActivityForResult(dropInRequest.getIntent(CartActivity.this),PAYMENT_REQUEST_CODE);
-            }
-        });
-        builder.show();
+                    DropInRequest dropInRequest = new DropInRequest().clientToken(token);
+                    startActivityForResult(dropInRequest.getIntent(CartActivity.this), PAYMENT_REQUEST_CODE);
+                }
+            });
+            builder.show();
+        }
+        else    {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("NOT LOGGED IN?");
+            builder.setMessage("Please Login or Register account to Place your Order");
+
+            builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            builder.setPositiveButton("PROCEED", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                    startActivity(new Intent(CartActivity.this,MainActivity.class));
+                    finish();
+                }
+            }).show();
+        }
     }
 
     @Override
@@ -286,6 +308,7 @@ public class CartActivity extends AppCompatActivity implements RecyclerItemTouch
                             //Toast.makeText(CartActivity.this, "Order Submitted...", Toast.LENGTH_SHORT).show();
 
                             Common.cartRepository.emptyCart();
+                            finish();
                         }
 
                         @Override

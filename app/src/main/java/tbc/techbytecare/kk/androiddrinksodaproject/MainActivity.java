@@ -44,7 +44,7 @@ import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.IDrinkShopAPI;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_PERMISSION_CODE = 1001;
-    Button btn_continue;
+    Button btn_continue,btn_skip;
     private int REQUEST_CODE = 1000;
 
     IDrinkShopAPI mService;
@@ -82,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
         mService = Common.getAPI();
 
         btn_continue = findViewById(R.id.btn_continue);
+        btn_skip = findViewById(R.id.btn_skip);
+
+        btn_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,HomeActivity.class));
+            }
+        });
 
         btn_continue.setOnClickListener(new View.OnClickListener() {
             @Override

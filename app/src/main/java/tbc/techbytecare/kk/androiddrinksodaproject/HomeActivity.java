@@ -11,6 +11,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,7 +28,10 @@ import android.widget.Toast;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
+import com.facebook.accountkit.Account;
 import com.facebook.accountkit.AccountKit;
+import com.facebook.accountkit.AccountKitCallback;
+import com.facebook.accountkit.AccountKitError;
 import com.ipaulpro.afilechooser.utils.FileUtils;
 import com.nex3z.notificationbadge.NotificationBadge;
 import com.squareup.picasso.Picasso;
@@ -37,6 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -54,7 +59,9 @@ import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.FavouriteDataS
 import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.TBCRoomDatabase;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Banner;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Category;
+import tbc.techbytecare.kk.androiddrinksodaproject.Model.CheckUserResponse;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Drink;
+import tbc.techbytecare.kk.androiddrinksodaproject.Model.User;
 import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.IDrinkShopAPI;
 import tbc.techbytecare.kk.androiddrinksodaproject.Utils.ProgressRequestBody;
 import tbc.techbytecare.kk.androiddrinksodaproject.Utils.UploadCallbacks;
@@ -122,19 +129,24 @@ public class HomeActivity extends AppCompatActivity
         img_avatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chooseImage();
+                if (Common.currentUser != null) {
+                    chooseImage();
+                }
             }
         });
 
-        txt_name.setText(Common.currentUser.getName());
-        txt_phone.setText(Common.currentUser.getPhone());
+        if (Common.currentUser != null) {
 
-        if (!TextUtils.isEmpty(Common.currentUser.getAvatarUrl()))  {
-            Picasso.with(this)
-                    .load(new StringBuilder(Common.BASE_URL)
-                    .append("user_avatar/")
-                    .append(Common.currentUser.getAvatarUrl()).toString())
-                    .into(img_avatar);
+            txt_name.setText(Common.currentUser.getName());
+            txt_phone.setText(Common.currentUser.getPhone());
+
+            if (!TextUtils.isEmpty(Common.currentUser.getAvatarUrl())) {
+                Picasso.with(this)
+                        .load(new StringBuilder(Common.BASE_URL)
+                                .append("user_avatar/")
+                                .append(Common.currentUser.getAvatarUrl()).toString())
+                        .into(img_avatar);
+            }
         }
 
         getBannerImage();
@@ -144,6 +156,64 @@ public class HomeActivity extends AppCompatActivity
         getToppingList();
 
         initDB();
+
+        checkSessionLogin();
+    }
+
+    private void checkSessionLogin() {
+        if (AccountKit.getCurrentAccessToken() != null) {
+
+            final AlertDialog dialog = new SpotsDialog(HomeActivity.this);
+            dialog.show();
+            dialog.setMessage("Please wait...");
+
+            AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
+                @Override
+                public void onSuccess(final Account account) {
+                    mService.checkUserExists(account.getPhoneNumber().toString())
+                            .enqueue(new Callback<CheckUserResponse>() {
+                                @Override
+                                public void onResponse(Call<CheckUserResponse> call, Response<CheckUserResponse> response) {
+                                    CheckUserResponse userResponse = response.body();
+
+                                    if (userResponse.isExists())    {
+                                        mService.getUserInformation(account.getPhoneNumber().toString())
+                                                .enqueue(new Callback<User>() {
+                                                    @Override
+                                                    public void onResponse(Call<User> call, Response<User> response) {
+                                                        Common.currentUser = response.body();
+
+                                                        if (Common.currentUser != null) {
+                                                            dialog.dismiss();
+                                                        }
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<User> call, Throwable t) {
+                                                        Log.d("ERROR", ""+t.getMessage());
+                                                    }
+                                                });
+                                    }
+                                    else    {
+                                        startActivity(new Intent(HomeActivity.this,MainActivity.class));
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<CheckUserResponse> call, Throwable t) {
+                                    Log.d("ERROR", ""+t.getMessage());
+                                }
+                            });
+                }
+
+                @Override
+                public void onError(AccountKitError accountKitError) {
+                    Log.d("ERROR", ""+accountKitError.getErrorType().getMessage());
+                }
+            });
+
+        }
     }
 
     private void chooseImage() {
@@ -367,7 +437,7 @@ public class HomeActivity extends AppCompatActivity
             builder.setTitle("Exit Application");
             builder.setMessage("Do you want to Log-Out of this application?");
 
-            builder.setPositiveButton("LEAVE", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton("TAKE ME OUT", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     AccountKit.logOut();
