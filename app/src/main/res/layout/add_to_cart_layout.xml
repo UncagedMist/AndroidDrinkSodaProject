@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/txt_cart_product_name"
-                android:text="Milk Tea"
+                android:text="@string/milk_tea"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -55,7 +55,7 @@
     <EditText
         android:id="@+id/edt_comment"
         android:background="@android:color/white"
-        android:hint="Comment"
+        android:hint="@string/comment"
         android:lines="1"
         android:minLines="2"
         android:inputType="textMultiLine"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Choose Cup Size"
+                    android:text="@string/choose_cup_size"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
 
                 <TextView
                     android:padding="4dp"
-                    android:text="REQUIRED"
+                    android:text="@string/required"
                     android:background="@drawable/text_round_gray"
                     android:layout_alignParentRight="true"
                     android:textColor="@android:color/white"
@@ -115,13 +115,13 @@
 
                     <RadioButton
                         android:id="@+id/rdi_sizeM"
-                        android:text="Size M"
+                        android:text="@string/size_m"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_sizeL"
-                        android:text="Size L"
+                        android:text="@string/size_l"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -135,14 +135,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:text="+$0"
+                        android:text="@string/_0"
                         android:textSize="18sp"
                         android:layout_marginRight="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="+$3"
+                        android:text="@string/_3"
                         android:textSize="18sp"
                         android:layout_marginRight="8dp"
                         android:layout_width="wrap_content"
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Choose Sugar Amount"
+                    android:text="@string/choose_sugar_amount"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
@@ -168,7 +168,7 @@
 
                 <TextView
                     android:padding="4dp"
-                    android:text="REQUIRED"
+                    android:text="@string/required"
                     android:background="@drawable/text_round_gray"
                     android:layout_alignParentRight="true"
                     android:textColor="@android:color/white"
@@ -192,31 +192,31 @@
 
                     <RadioButton
                         android:id="@+id/rdi_sugar_100"
-                        android:text="100 %"
+                        android:text="@string/_100"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_sugar_75"
-                        android:text="75 %"
+                        android:text="@string/_75"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_sugar_50"
-                        android:text="50 %"
+                        android:text="@string/_50"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_sugar_25"
-                        android:text="25 %"
+                        android:text="@string/_25"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_sugar_free"
-                        android:text="Sugar Free"
+                        android:text="@string/sugar_free"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -232,7 +232,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Cold Quantity"
+                    android:text="@string/cold_quantity"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
@@ -240,7 +240,7 @@
 
                 <TextView
                     android:padding="4dp"
-                    android:text="REQUIRED"
+                    android:text="@string/required"
                     android:background="@drawable/text_round_gray"
                     android:layout_alignParentRight="true"
                     android:textColor="@android:color/white"
@@ -264,31 +264,31 @@
 
                     <RadioButton
                         android:id="@+id/rdi_ice_100"
-                        android:text="100 %"
+                        android:text="@string/_100"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_ice_75"
-                        android:text="75 %"
+                        android:text="@string/_75"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_ice_50"
-                        android:text="50 %"
+                        android:text="@string/_50"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_ice_25"
-                        android:text="25 %"
+                        android:text="@string/_25"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
                     <RadioButton
                         android:id="@+id/rdi_ice_free"
-                        android:text="Ice Free"
+                        android:text="@string/ice_free"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -304,7 +304,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:text="Toppings"
+                    android:text="@string/toppings"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_width="wrap_content"
@@ -312,7 +312,7 @@
 
                 <TextView
                     android:padding="4dp"
-                    android:text="OPTIONAL"
+                    android:text="@string/optional"
                     android:background="@drawable/text_round_gray"
                     android:layout_alignParentRight="true"
                     android:textColor="@android:color/white"

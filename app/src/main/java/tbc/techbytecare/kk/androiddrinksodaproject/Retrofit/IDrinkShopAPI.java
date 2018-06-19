@@ -15,6 +15,7 @@ import tbc.techbytecare.kk.androiddrinksodaproject.Model.Banner;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Category;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.CheckUserResponse;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Drink;
+import tbc.techbytecare.kk.androiddrinksodaproject.Model.Order;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.User;
 
 public interface IDrinkShopAPI {
@@ -63,4 +64,9 @@ public interface IDrinkShopAPI {
     @POST("braintree/checkout.php")
     Call<String> payment(@Field("nonce") String nonce,
                              @Field("amount") String amount);
+
+    @FormUrlEncoded
+    @POST("getorder.php")
+    Observable<List<Order>> getOrder(@Field("userPhone") String userPhone,
+                                     @Field("status") String status);
 }

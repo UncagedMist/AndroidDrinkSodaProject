@@ -21,7 +21,7 @@
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edt_name"
-                android:hint="Name"
+                android:hint="@string/name"
                 android:textSize="18sp"
                 android:inputType="text"
                 app:met_floatingLabel="highlight"
@@ -30,7 +30,7 @@
 
             <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/edt_address"
-                android:hint="Address"
+                android:hint="@string/address"
                 android:textSize="18sp"
                 android:inputType="text"
                 app:met_floatingLabel="highlight"

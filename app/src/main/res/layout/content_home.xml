@@ -17,7 +17,7 @@
 
     <TextView
         android:gravity="center"
-        android:text="OUR POPULAR PRODUCTS"
+        android:text="@string/our_popular_products"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"

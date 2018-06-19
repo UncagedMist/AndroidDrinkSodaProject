@@ -9,7 +9,7 @@
 
     <EditText
         android:id="@+id/edt_comment"
-        android:hint="Enter Comment"
+        android:hint="@string/enter_comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -21,7 +21,7 @@
 
         <RadioButton
             android:id="@+id/rdi_user_address"
-            android:text="User's Address"
+            android:text="@string/user_s_address"
             android:checked="true"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -29,7 +29,7 @@
 
         <RadioButton
             android:id="@+id/rdi_other_address"
-            android:text="Other Address"
+            android:text="@string/other_address"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content" />
@@ -38,7 +38,7 @@
 
     <EditText
         android:id="@+id/edt_other_address"
-        android:hint="Other Address"
+        android:hint="@string/other_address"
         android:enabled="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

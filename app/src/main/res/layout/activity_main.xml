@@ -17,7 +17,7 @@
         <Button
             android:id="@+id/btn_continue"
             android:background="@color/colorPrimary"
-            android:text="REGISTER OR LOGIN"
+            android:text="@string/register_or_login"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         <Button
             android:id="@+id/btn_skip"
             android:background="@color/colorPrimary"
-            android:text="SKIP FOR NOW"
+            android:text="@string/skip_for_now"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"

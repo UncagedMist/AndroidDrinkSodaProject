@@ -7,17 +7,22 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
+            android:title="@string/home" />
 
         <item
             android:id="@+id/nav_fav"
             android:icon="@drawable/ic_favorite_white_24dp"
-            android:title="Favourites" />
+            android:title="@string/favourites" />
+
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_attach_money_black_24dp"
+            android:title="Your Orders" />
 
         <item
             android:id="@+id/nav_sign_out"
             android:icon="@drawable/ic_exit_to_app_black_24dp"
-            android:title="Sign Out" />
+            android:title="@string/sign_out" />
     </group>
 
 

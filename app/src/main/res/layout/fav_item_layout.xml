@@ -24,7 +24,7 @@
 
         <TextView
             android:layout_toLeftOf="@id/delete_icon"
-            android:text="DELETE"
+            android:text="@string/delete"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -51,7 +51,7 @@
 
             <TextView
                 android:id="@+id/txt_product_name"
-                android:text="Milk Tea"
+                android:text="@string/milk_tea"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/txt_price"
-                android:text="$ 200"
+                android:text="@string/_200"
                 android:textSize="20sp"
                 android:layout_weight="6"
                 android:layout_width="wrap_content"

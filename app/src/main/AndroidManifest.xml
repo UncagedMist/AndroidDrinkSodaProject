@@ -37,7 +37,8 @@
         <activity android:name=".DrinkActivity" />
         <activity android:name=".CartActivity" />
         <activity android:name=".FavouriteActivity" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".ShowOrderActivity"></activity>
     </application>
 
 </manifest>

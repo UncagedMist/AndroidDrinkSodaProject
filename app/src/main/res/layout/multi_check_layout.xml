@@ -6,7 +6,7 @@
 
     <CheckBox
         android:id="@+id/ckb_toppings"
-        android:text="Drink"
+        android:text="@string/drink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
