@@ -1,9 +1,12 @@
 package tbc.techbytecare.kk.androiddrinksodaproject;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,6 +27,8 @@ public class ShowOrderActivity extends AppCompatActivity {
 
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
+    BottomNavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,16 +40,40 @@ public class ShowOrderActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        loadAllOrders();
+        navigationView = findViewById(R.id.bottom_navigation);
+
+        navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                if (item.getItemId() == R.id.order_new) {
+                    loadAllOrders("0");
+                }
+                else if (item.getItemId() == R.id.order_cancel) {
+                    loadAllOrders("-1");
+                }
+                else if (item.getItemId() == R.id.order_processing) {
+                    loadAllOrders("1");
+                }
+                else if (item.getItemId() == R.id.order_shipping) {
+                    loadAllOrders("2");
+                }
+                else if (item.getItemId() == R.id.order_shipped) {
+                    loadAllOrders("3");
+                }
+                return true;
+            }
+        });
+        loadAllOrders("0");
     }
 
-    private void loadAllOrders() {
+    private void loadAllOrders(String statusCode) {
 
         if (Common.currentUser != null) {
 
             compositeDisposable.add(mService.getOrder(
                     Common.currentUser.getPhone(),
-                    "0"
+                    statusCode
             ).observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new Consumer<List<Order>>() {
@@ -68,7 +97,7 @@ public class ShowOrderActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadAllOrders();
+        loadAllOrders("0");
     }
 
     @Override
