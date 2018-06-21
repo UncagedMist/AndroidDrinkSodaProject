@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -80,6 +81,8 @@ public class HomeActivity extends AppCompatActivity
     NotificationBadge badge;
     ImageView cart_icon;
 
+    SwipeRefreshLayout refreshLayout;
+
     CircleImageView img_avatar;
 
     Uri selectedFileUri;
@@ -96,6 +99,8 @@ public class HomeActivity extends AppCompatActivity
         getSupportActionBar().setTitle("Drink Management");
 
         mService = Common.getAPI();
+
+        refreshLayout = findViewById(R.id.swipe_layout);
 
         sliderLayout = findViewById(R.id.slider);
 
@@ -126,25 +131,28 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        if (Common.currentUser != null) {
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                getBannerImage();
 
-            txt_name.setText(Common.currentUser.getName());
-            txt_phone.setText(Common.currentUser.getPhone());
+                getMenu();
 
-            if (!TextUtils.isEmpty(Common.currentUser.getAvatarUrl())) {
-                Picasso.with(this)
-                        .load(new StringBuilder(Common.BASE_URL)
-                                .append("user_avatar/")
-                                .append(Common.currentUser.getAvatarUrl()).toString())
-                        .into(img_avatar);
+                getToppingList();
             }
-        }
+        });
 
-        getBannerImage();
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshLayout.setRefreshing(true);
+                getBannerImage();
 
-        getMenu();
+                getMenu();
 
-        getToppingList();
+                getToppingList();
+            }
+        });
 
         initDB();
 
@@ -154,9 +162,7 @@ public class HomeActivity extends AppCompatActivity
     private void checkSessionLogin() {
         if (AccountKit.getCurrentAccessToken() != null) {
 
-            final AlertDialog dialog = new SpotsDialog(HomeActivity.this);
-            dialog.show();
-            dialog.setMessage("Please wait...");
+            refreshLayout.setRefreshing(true);
 
             AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {
                 @Override
@@ -175,12 +181,27 @@ public class HomeActivity extends AppCompatActivity
                                                         Common.currentUser = response.body();
 
                                                         if (Common.currentUser != null) {
-                                                            dialog.dismiss();
+                                                            refreshLayout.setRefreshing(false);
+
+                                                            if (Common.currentUser != null) {
+
+                                                                txt_name.setText(Common.currentUser.getName());
+                                                                txt_phone.setText(Common.currentUser.getPhone());
+
+                                                                if (!TextUtils.isEmpty(Common.currentUser.getAvatarUrl())) {
+                                                                    Picasso.with(getBaseContext())
+                                                                            .load(new StringBuilder(Common.BASE_URL)
+                                                                                    .append("user_avatar/")
+                                                                                    .append(Common.currentUser.getAvatarUrl()).toString())
+                                                                            .into(img_avatar);
+                                                                }
+                                                            }
                                                         }
                                                     }
 
                                                     @Override
                                                     public void onFailure(Call<User> call, Throwable t) {
+                                                        refreshLayout.setRefreshing(false);
                                                         Log.d("ERROR", ""+t.getMessage());
                                                     }
                                                 });
@@ -204,6 +225,14 @@ public class HomeActivity extends AppCompatActivity
                 }
             });
 
+        }
+        else    {
+//            AccountKit.logOut();
+//
+//            Intent intent = new Intent(HomeActivity.this,MainActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//            finish();
         }
     }
 
@@ -305,6 +334,8 @@ public class HomeActivity extends AppCompatActivity
     private void displayMenu(List<Category> categories) {
         CategoryAdapter adapter = new CategoryAdapter(this,categories);
         lst_menu.setAdapter(adapter);
+
+        refreshLayout.setRefreshing(false);
     }
 
     private void getBannerImage() {
