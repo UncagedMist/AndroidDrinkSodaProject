@@ -402,7 +402,13 @@ public class HomeActivity extends AppCompatActivity
         cart_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this,CartActivity.class));
+
+                if (Common.currentUser != null) {
+                    startActivity(new Intent(HomeActivity.this,CartActivity.class));
+                }
+                else    {
+                    Toast.makeText(HomeActivity.this, "Plz Login to view this feature...", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -452,10 +458,21 @@ public class HomeActivity extends AppCompatActivity
             // Handle the home action
         }
         else if (id == R.id.nav_fav)    {
-            startActivity(new Intent(HomeActivity.this,FavouriteActivity.class));
+            if (Common.currentUser != null) {
+                startActivity(new Intent(HomeActivity.this,FavouriteActivity.class));
+            }
+            else    {
+                Toast.makeText(this, "Plz Login to view this feature...", Toast.LENGTH_SHORT).show();
+            }
         }
         else if (id == R.id.nav_order)      {
-            startActivity(new Intent(HomeActivity.this,ShowOrderActivity.class));
+            if (Common.currentUser != null) {
+                startActivity(new Intent(HomeActivity.this,ShowOrderActivity.class));
+            }
+            else    {
+                Toast.makeText(this, "Plz Login to view this feature...", Toast.LENGTH_SHORT).show();
+            }
+
         }
         else if (id == R.id.nav_sign_out) {
 

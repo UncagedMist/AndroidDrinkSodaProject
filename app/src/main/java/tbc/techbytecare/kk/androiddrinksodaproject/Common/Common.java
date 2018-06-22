@@ -8,6 +8,7 @@ import tbc.techbytecare.kk.androiddrinksodaproject.Database.DataSource.Favourite
 import tbc.techbytecare.kk.androiddrinksodaproject.Database.Local.TBCRoomDatabase;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Category;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.Drink;
+import tbc.techbytecare.kk.androiddrinksodaproject.Model.Order;
 import tbc.techbytecare.kk.androiddrinksodaproject.Model.User;
 import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.IDrinkShopAPI;
 import tbc.techbytecare.kk.androiddrinksodaproject.Retrofit.RetrofitClient;
@@ -23,6 +24,8 @@ public class Common {
     public static User currentUser = null;
 
     public static Category currentCategory = null;
+
+    public static Order currentOrder = null;
 
     public static double toppingPrice = 0.0;
     public static List<String> toppingAdded = new ArrayList<>();
