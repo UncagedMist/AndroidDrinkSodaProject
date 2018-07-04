@@ -61,7 +61,12 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
         holder.imgCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showAddToCartDialog(position);
+                if (Common.currentUser != null) {
+                    showAddToCartDialog(position);
+                }
+                else    {
+                    Toast.makeText(context, "Plz login to add this item to cart..", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -82,13 +87,18 @@ public class DrinkAdapter extends RecyclerView.Adapter<DrinkViewHolder> {
         holder.imgFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Common.favouriteRepository.isFavourite(Integer.parseInt(drinkList.get(position).ID)) != 1)  {
-                    addOrRemoveFavourites(drinkList.get(position),true);
-                    holder.imgFav.setImageResource(R.drawable.ic_favorite_white_24dp);
+                if (Common.currentUser != null) {
+
+                    if (Common.favouriteRepository.isFavourite(Integer.parseInt(drinkList.get(position).ID)) != 1) {
+                        addOrRemoveFavourites(drinkList.get(position), true);
+                        holder.imgFav.setImageResource(R.drawable.ic_favorite_white_24dp);
+                    } else {
+                        addOrRemoveFavourites(drinkList.get(position), false);
+                        holder.imgFav.setImageResource(R.drawable.ic_favorite_border_24dp);
+                    }
                 }
                 else    {
-                    addOrRemoveFavourites(drinkList.get(position),false);
-                    holder.imgFav.setImageResource(R.drawable.ic_favorite_border_24dp);
+                    Toast.makeText(context, "Plz login to add/remove this item from favourites..", Toast.LENGTH_SHORT).show();
                 }
             }
         });

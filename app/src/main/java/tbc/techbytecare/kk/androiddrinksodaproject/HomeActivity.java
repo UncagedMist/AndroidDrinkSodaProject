@@ -473,33 +473,42 @@ public class HomeActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_sign_out) {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Exit Application");
-            builder.setMessage("Do you want to Log-Out of this application?");
-
-            builder.setPositiveButton("TAKE ME OUT", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    AccountKit.logOut();
-
-                    Intent intent = new Intent(HomeActivity.this,MainActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                }
-            });
-            builder.setNegativeButton("STAY", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-            builder.show();
+            if (Common.currentUser != null) {
+                signOut();
+            }
+            else    {
+                Toast.makeText(this, "You are currently not logged in...", Toast.LENGTH_SHORT).show();
+            }
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void signOut() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Exit Application");
+        builder.setMessage("Do you want to Log-Out of this application?");
+
+        builder.setPositiveButton("TAKE ME OUT", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                AccountKit.logOut();
+
+                Intent intent = new Intent(HomeActivity.this,MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+        builder.setNegativeButton("STAY", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     @Override
